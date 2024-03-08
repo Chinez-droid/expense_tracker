@@ -15,6 +15,7 @@ class Expenses extends StatefulWidget {
 
 // private class for managing the expenses state
 class _ExpensesState extends State<Expenses> {
+  // list for storing expenses
   final List<Expense> _registeredExpenses = [
     Expense(
       title: 'Flutter Course',
@@ -32,14 +33,64 @@ class _ExpensesState extends State<Expenses> {
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
-      context: context,
-      builder: (ctx) => const NewExpense(),
+        isScrollControlled: true,
+        context: context,
+        builder: (ctx) => NewExpense(
+            onAddExpense: _addExpense) // passing onAddExpense to this function
+        );
+  }
+
+  // method for adding expenses to the list
+  void _addExpense(Expense expense) {
+    setState(() {
+      _registeredExpenses.add(expense);
+    });
+  }
+
+  // method for removing expenses from the list
+  void _removeExpense(Expense expense) {
+    // checking where the expense index was removed from
+    final expenseIndex = _registeredExpenses.indexOf(expense);
+
+    setState(() {
+      _registeredExpenses.remove(expense);
+    });
+
+    // for displaying the snackBar information
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 5),
+        content: const Text('Expense Deleted'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            setState(() {
+              _registeredExpenses.insert(expenseIndex, expense);
+            });
+          },
+        ),
+      ),
     );
   }
 
   // method override to return widgets design & functionality
   @override
   Widget build(BuildContext context) {
+    // message displayed when no items are added
+    Widget mainContent = const Center(
+      child: Text('No expenses found, Start adding some!'),
+    );
+
+    // conditions to check if the items are not empty
+    if (_registeredExpenses.isNotEmpty) {
+      // store the ExpensesList in the mainContent instead of the empty text message
+      mainContent = ExpensesList(
+        expenses: _registeredExpenses,
+        onRemoveExpense: _removeExpense,
+      );
+    }
+
     return Scaffold(
       // appbar with button
       appBar: AppBar(
@@ -54,9 +105,7 @@ class _ExpensesState extends State<Expenses> {
       body: Column(
         children: [
           const Text('The Chart'),
-          Expanded(
-            child: ExpensesList(expenses: _registeredExpenses),
-          ),
+          Expanded(child: mainContent),
         ],
       ),
     );

@@ -3,7 +3,10 @@ import 'package:expense_tracker/models/expense.dart';
 
 // class to manage textfield for input
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  const NewExpense({super.key, required this.onAddExpense});
+
+  // storing the function for adding new expenses to the list
+  final void Function(Expense expense) onAddExpense;
 
   @override
   State<NewExpense> createState() {
@@ -73,6 +76,16 @@ class _NewExpenseState extends State<NewExpense> {
       );
       return;
     }
+
+    // Accessing our widget class to execute the add expense function
+    widget.onAddExpense(
+      Expense(
+          title: _titleController.text,
+          amount: enteredAmount,
+          date: _selectedDate!,
+          category: _selectedCategory),
+    );
+    Navigator.pop(context);
   }
 
   // deletes the controller when the widget ain't needed anymore
@@ -87,7 +100,7 @@ class _NewExpenseState extends State<NewExpense> {
   Widget build(BuildContext context) {
     // returns the widget's design & functionality
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
       child: Column(
         children: [
           TextField(
