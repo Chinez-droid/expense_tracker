@@ -48,7 +48,7 @@ void main() {
                   fontSize: 16),
             ),
       ),
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.system,
 
       // using our expenses class settings here
       home: const Expenses(),

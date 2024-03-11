@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
+// extended class for displaying the chart bar
 class ChartBar extends StatelessWidget {
   const ChartBar({
     super.key,
     required this.fill,
   });
 
+  // property to set our height used by the other class
   final double fill;
 
   @override
   Widget build(BuildContext context) {
+    // dynamically derive whether we're in dark mode or not with the help of media query
     final isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Expanded(

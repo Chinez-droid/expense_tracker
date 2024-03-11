@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:expense_tracker/widgets/chart/chart_bar.dart';
 import 'package:expense_tracker/models/expense.dart';
 
+// class for displaying the chart
 class Chart extends StatelessWidget {
   const Chart({super.key, required this.expenses});
 
   // property for list of expenses
   final List<Expense> expenses;
 
-  // getter that creates the expense buckets using the 2nd class in expenses.dart
+  // getter that creates the expense buckets using the 2nd class in expense.dart
   List<ExpenseBucket> get buckets {
     return [
       ExpenseBucket.forCategory(expenses, Category.food),
@@ -33,6 +34,7 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // dynamically derive whether we're in dark mode or not with the help of media query
     final isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Container(
