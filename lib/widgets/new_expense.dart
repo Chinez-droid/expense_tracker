@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/models/expense.dart';
 import 'package:flutter/rendering.dart';
@@ -48,18 +51,26 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
-  // method for saving the form data
-  void _submitExpenseData() {
-    // storing the inputted amount as a number
-    final enteredAmount = double.tryParse(_amountController.text);
-
-    // if nothing is inputted or the inputted amount is less than or = 0
-    final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
-    // if text stored in the title input is empty or the amount is invalid or the date is invalid
-    if (_titleController.text.trim().isEmpty ||
-        amountIsInvalid ||
-        _selectedDate == null) {
-      // method for displaying the error message
+  void _showDialog() {
+    // checking the platform we're displaying respective dialogs in
+    if (Platform.isIOS) {
+      // method for displaying the error message on IOS
+      showCupertinoDialog(
+          context: context,
+          builder: (ctx) => CupertinoAlertDialog(
+                title: const Text('Invalid input'),
+                content: const Text(
+                    'Please make sure a valid title, amount, date and category was entered...'),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(ctx);
+                      },
+                      child: const Text('Okay')),
+                ],
+              ));
+    } else {
+      // method for displaying the error message on Android
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
@@ -75,6 +86,21 @@ class _NewExpenseState extends State<NewExpense> {
           ],
         ),
       );
+    }
+  }
+
+  // method for saving the form data
+  void _submitExpenseData() {
+    // storing the inputted amount as a number
+    final enteredAmount = double.tryParse(_amountController.text);
+
+    // if nothing is inputted or the inputted amount is less than or = 0
+    final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+    // if text stored in the title input is empty or the amount is invalid or the date is invalid
+    if (_titleController.text.trim().isEmpty ||
+        amountIsInvalid ||
+        _selectedDate == null) {
+      _showDialog();
       return;
     }
 
