@@ -1,16 +1,23 @@
-# expense_tracker
+# 💹 Expense Tracker
 
-A new Flutter project.
+A user-friendly app with light and dark themes that allows users to track expenses in various categories, from food and travel to leisure and work.
 
-## Getting Started
+## 📽️ Demo
+https://github.com/user-attachments/assets/df1c9885-4d46-4611-97bb-021f380d4bfb
 
-This project is a starting point for a Flutter application.
+## 🔨 Tools
+- Flutter: A UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.
+- SetState: Used as a state management for basic flutter applications
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## ⚒️ Installation
+To get started with the shopping list app, follow these steps:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Chinez-droid/expense_tracker.git
+   cd expense_tracker
+2. Install dependencies:
+   ```bash
+   flutter pub get
+3. Run the app:
+   ```bash
+   flutter run
