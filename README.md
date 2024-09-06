@@ -1,4 +1,4 @@
-# 💹 Expense Tracker
+# 💹 Expense Tracker App
 
 A user-friendly app with light and dark themes that allows users to track expenses in various categories, from food and travel to leisure and work.
 
