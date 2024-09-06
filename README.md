@@ -10,7 +10,7 @@ https://github.com/user-attachments/assets/df1c9885-4d46-4611-97bb-021f380d4bfb
 - SetState: Used as a state management for basic flutter applications
 
 ## ⚒️ Installation
-To get started with the shopping list app, follow these steps:
+To get started with the expense tracker app, follow these steps:
 1. Clone the repository:
    ```bash
    git clone https://github.com/Chinez-droid/expense_tracker.git
